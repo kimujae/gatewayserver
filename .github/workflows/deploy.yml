@@ -50,5 +50,5 @@ jobs:
             docker load < service-gateway.tar.gz
             docker stop service-gateway || true
             docker rm  service-gateway || true
-            docker run -d -p 8080:8072 --name service-gateway  service-gateway
+            docker run -d -p 8080:8080 --name service-gateway  service-gateway
             docker image prune -f --filter "dangling=true"
