@@ -23,10 +23,10 @@ jobs:
         run: ./gradlew build -x test
 
       - name: Build Docker image
-        run: docker build -t discoveryserver .
+        run: docker build -t service-gateway .
 
       - name: Save Docker image
-        run: docker save discoveryserver | gzip > discoveryserver.tar.gz
+        run: docker save service-gateway | gzip > service-gateway.tar.gz
 
       - name: Upload Docker image to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -36,7 +36,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_SSH_KEY }}
           port: 22
-          source: "discoveryserver.tar.gz"
+          source: "service-gateway.tar.gz"
           target: "/home/ubuntu"
 
       - name: Deploy Docker image on EC2
@@ -47,8 +47,8 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           port: 22
           script: |
-            docker load < discoveryserver.tar.gz
-            docker stop discoveryserver || true
-            docker rm  discoveryserver || true
-            docker run -d -p 8080:8072 --name discoveryserver discoveryserver
+            docker load < service-gateway.tar.gz
+            docker stop service-gateway || true
+            docker rm  service-gateway || true
+            docker run -d -p 8080:8072 --name service-gateway  service-gateway
             docker image prune -f --filter "dangling=true"
