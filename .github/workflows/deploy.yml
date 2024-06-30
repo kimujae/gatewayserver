@@ -50,5 +50,5 @@ jobs:
             docker load < discoveryserver.tar.gz
             docker stop discoveryserver || true
             docker rm  discoveryserver || true
-            docker run -d -p 8072:8072 --name discoveryserver discoveryserver
+            docker run -d -p 80:8072 --name discoveryserver discoveryserver
             docker image prune -f --filter "dangling=true"
