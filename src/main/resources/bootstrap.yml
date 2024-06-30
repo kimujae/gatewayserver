@@ -1,6 +1,4 @@
 # spring config server에서 config 정보를 주입받기 위한 사전 구성정보 작성
-server :
-  port : 8072
 spring :
   application :
     name : service-gateway
