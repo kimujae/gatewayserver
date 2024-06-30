@@ -6,7 +6,7 @@ spring :
     import: "optional:configserver:"
   cloud :
     config :
-      uri : http://43.200.253.50/
+      uri : http://43.201.146.199:8071
 eureka :
   instance :
     preferIpAddress : true
